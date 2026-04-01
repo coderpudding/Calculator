@@ -206,4 +206,43 @@ a {
   clear: both;
 }
 #the-result ul li.result:nth-child(even) {
+  background: rgba(40, 40, 40, 0.6);
+}
+
+#the-results ul li.result .equation,
+#the-result ul li.result .answer {
+  display: inline-block;
+  padding: 0px 12px;
+  height: 100%;
+  line-height: 40px;
+}
+
+#the-result ul li.result .equation {
+  float: left;
+  font-style: italic;
+  height: 100%;
+  max-width: 55%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+#the-results ul li.results .answer {
+  position: absolute;
+  right: 52px;
+  top: 0;
+  background: rgba(0, 0, 0, 0.4);
+}
+
+#the-result ul li.result .use a {
+  background: rgba(60, 60, 60, 0.8);
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 100%;
+  display: block;
+  padding: 0px 8px;
+  width: 52px;
+  text-align: center;
+  color: #fff;
 }
