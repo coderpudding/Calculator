@@ -130,3 +130,80 @@ a {
   border-radius: 4px;
   transition: background 0.2s;
 }
+
+#thecalculator #the-buttons .button-row button:last-child {
+  margin-right: 0;
+  float: right;
+}
+
+#the-calculator #the-buttons .button-row button:hover,
+#the-calculator #the-buttons .button-row button.hovering {
+  background: rgba(80, 80, 80, 0.9);
+}
+
+#the-calculator #the-buttons #calc_zero {
+  width: 48%;
+}
+
+#the-calculator #the-buttons #calc_clear,
+#the-calculator #the-buttons #calc_back {
+  background: rgba(30, 30, 30, 0.8);
+}
+
+#the-calculator #the-buttons #calc_eval {
+  background: #00ff88;
+  color: #000;
+  font-weight: bold;
+}
+
+#the-result {
+  width: 49%;
+  float: right;
+  margin: 0;
+  border: 1px solid rgba(255, 255, 25, 0.1);
+  background: rgba(0, 0, 0, 0.75);
+  border-radius: 8px;
+  position: relative;
+}
+
+#the-result #result_clear {
+  position: absolute;
+  right: 8px;
+  top: -24px;
+  color: #aaa;
+  font-size: 0.8em;
+}
+
+#the-results ul {
+  height: 440px;
+  overflow: scroll;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 25, 0.1);
+  border-radius: 8px;
+}
+
+#the-result ul li #result_default {
+  text-align: center;
+  color: #aaa;
+  font-size: italic;
+}
+
+#the-results ul li.result {
+  display: none;
+  font-size: 0.8em;
+  color: #ccc;
+  background: rgba(20, 20, 20, 0.6);
+  position: relative;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+#the-result ul li.result:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+#the-result ul li.result:nth-child(even) {
+}
