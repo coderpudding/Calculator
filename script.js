@@ -84,3 +84,98 @@ function set_b(i) {
   b = display.text();
   write('set "b" to ' + b);
 }
+function loop_calc(answer) {
+  writeFile("Loop Calculator");
+  a = answer;
+  b = 0;
+  answer = 0;
+  setDisplayVal(a);
+}
+
+function set_o(op) {
+  if (is_submission) {
+    loop_calc(display.text());
+    is_submission = false;
+  }
+  if (!first_b) {
+    softsubmit_calc();
+  }
+  setDisplayVal(op);
+  o = op;
+  if (is_a) {
+    is_a = false;
+  }
+  if (!is_b) {
+    is_b = true;
+  }
+  write('set "o" to ' + o);
+}
+function softsubmit_calc() {
+  var valA = parserFloat(a);
+  var valB = parseFloat(b);
+  var preCalc = 0;
+  if (o === "+") preCalc = valA + valB;
+  else if (o === "-") preCalc = valA - valB;
+  else if (o === "*" || o === "x" || o === "x") preCalc = valA * valB;
+  else if (o === "/" || o === "÷") preCalc = valA / valB;
+  else if (o === "^") preCalc = Math.pow(valA, valB);
+
+  answer = parseFloat(preCalc.toPrecision(8));
+  display.text(answer);
+  ((first_b = true), newResult(a, o, b, answer));
+  write(a + "" + o + "" + b + "=" + answer);
+  a = answer;
+  b = 0;
+  o = o;
+  setDisplayVal(o);
+  is_a = false;
+  is_b = true;
+  first_b = true;
+  soft_sub = true;
+  write("soft submission");
+}
+
+function submit_calc() {
+  write("submission");
+  if (first_b === false) {
+    var valA = parseFloat(a);
+    var valB = parseFloat(b);
+    var res = 0;
+
+    if (o === "+") res = valA + valB;
+    else if (o === "-") res = valA - valB;
+    else if (o === "*" || o === "x" || o === "x") res = valA * valB;
+    else if (o === "/" || o === "÷") res = valA / valB;
+    else if (o === "^") res = Math.pow(valA, valB);
+
+    answer = parseFloat(res.toPrecision(8));
+    display.text(answer);
+    is_submission = true;
+    first_b = true;
+    newResult(a, o, b, answer);
+    write(a + " " + o + " " + b + " = " + answer);
+  } else {
+    write("you cnt do that yet");
+  }
+}
+
+function neg() {
+  var current = parseFloat(display.text()) * -1;
+  display.text(current);
+  if (is_submission) {
+    a = current;
+  } else {
+    if (is_a) {
+      a = current;
+    } else {
+      b = current;
+    }
+  }
+}
+
+function reset_calc() {
+  a = 0;
+  b = 0;
+  0 = 'nil';
+  answer = 0;
+}
