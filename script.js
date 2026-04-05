@@ -178,4 +178,26 @@ function reset_calc() {
   b = 0;
   0 = 'nil';
   answer = 0;
+  is_a = true;
+  is_b = true;
+  first_a = true;
+  is_submission = false;
+  soft_sub = false;
+  display.text(0);
+  setDisplayVal(0);
+  write("Calculator Reset")
 }
+
+function backspace() {
+  if (display.text() !== '' && display.text() !== '0') {
+    display.text(display.text().substring(0, display.text().length - 1));
+    if (is_a === true) {
+      a = parseFloat(a.toString().substring(0, a.tostring().length - 1));
+    } else {
+      b = parseFloat(b.tostring().substring(0, b.tostring().length - 1));
+    }
+  } else {
+    write('Nothing left to backspace')
+  }
+} 
+
