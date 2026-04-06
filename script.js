@@ -1,4 +1,5 @@
 const { button } = require("framer-motion/client");
+const { memo } = require("react");
 
 var a = 0,
   b = 0,
@@ -201,3 +202,57 @@ function backspace() {
   }
 } 
 
+function memory(i) {
+  if (is_submission) {
+    loop_calc(i);
+  } else if (is_a) {
+    loop_calc(i);
+  } else {
+    set_b(i);
+  }
+  answer = a;
+}
+
+
+function newResult(a, o, b, answer) {
+  var result = jQuery('#results_list');
+  var result = '' +
+  '<li class="result"><span class="equation">' + a + visOps(o) + b + '</span>' +
+    '<span class="answer">' + answer + '</span> <span class="use"><a class="calc_use" href="#">Use</a></span></li>';
+  result.prepend(result).children('li').fadein(200);
+  if (jQuery('#results_default')) {
+    jQuery('#result_default').remove();
+  }
+  jQuery('.calc_use').off('click').on('click', function () {
+    var i = jQuery(this).parent('.use').siblings('.answer').text();
+    jQuery(this).parent('.result').animate({
+      'opacity': '1'
+    }, 200);
+    memory(i);
+    return false;
+  });
+}
+
+function sqrt(i) {
+  write(' Square Root');
+  var s = Math.sqrt(i);
+  answer = s;
+  write('u221A' + i + '=' + s);
+  loop_calc(s);
+  newResult('', '√', i, s);
+  display.text(answer);
+  is_submission = true;
+  first_b = true;
+}
+
+function denom(i) {
+  write('Denominator');
+  var s = 1 / i;
+  answer = s;
+  write('1/' + i + '=' + s);
+  loop_calc(s);
+  newResult(1, '/', i, s);
+  display.text(answer);
+  is_submission = true;
+  first_b = true;
+}
