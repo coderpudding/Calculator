@@ -255,4 +255,38 @@ function denom(i) {
   display.text(answer);
   is_submission = true;
   first_b = true;
-}
+} 
+
+jQuery('.calc_int, #calc_decimal').each(function () {
+  jQuery(this).click(function () {
+    var value = jQuery(this).val();
+    if (is_submission === false) {
+      if (is_a === true) {
+        set_a(value);
+      } else {
+        set_b(value);
+      }
+    } else {
+      reset_calc();
+      set_a(value);
+    }
+  });
+});
+
+jQuery('.calc_op').each(function () {
+  jQuery(this).click(function () {
+    var value = jQuery(this).val();
+    set_o(value);
+  });
+});
+
+jQuery('#calc_eval').click(function () {
+  submit_calc();
+});
+
+jQuery('#calc_clear').click(function () {
+  reset_calc();
+});
+jQuery('calc_neg').click(function () {
+  neg();
+});
