@@ -1,3 +1,4 @@
+const { animate } = require("framer-motion");
 const { button } = require("framer-motion/client");
 const { memo } = require("react");
 
@@ -112,7 +113,7 @@ function set_o(op) {
   write('set "o" to ' + o);
 }
 function softsubmit_calc() {
-  var valA = parserFloat(a);
+  var valA = parseFloat(a);
   var valB = parseFloat(b);
   var preCalc = 0;
   if (o === "+") preCalc = valA + valB;
@@ -177,20 +178,21 @@ function neg() {
 function reset_calc() {
   a = 0;
   b = 0;
-  0 = 'nil';
+  o = "nil";
   answer = 0;
   is_a = true;
-  is_b = true;
+  is_b = false;
   first_a = true;
+  first_b = true;
   is_submission = false;
   soft_sub = false;
   display.text(0);
   setDisplayVal(0);
-  write("Calculator Reset")
+  write("Calculator Reset");
 }
 
 function backspace() {
-  if (display.text() !== '' && display.text() !== '0') {
+  if (display.text() !== "" && display.text() !== "0") {
     display.text(display.text().substring(0, display.text().length - 1));
     if (is_a === true) {
       a = parseFloat(a.toString().substring(0, a.tostring().length - 1));
@@ -198,9 +200,9 @@ function backspace() {
       b = parseFloat(b.tostring().substring(0, b.tostring().length - 1));
     }
   } else {
-    write('Nothing left to backspace')
+    write("Nothing left to backspace");
   }
-} 
+}
 
 function memory(i) {
   if (is_submission) {
@@ -213,51 +215,62 @@ function memory(i) {
   answer = a;
 }
 
-
 function newResult(a, o, b, answer) {
-  var result = jQuery('#results_list');
-  var result = '' +
-  '<li class="result"><span class="equation">' + a + visOps(o) + b + '</span>' +
-    '<span class="answer">' + answer + '</span> <span class="use"><a class="calc_use" href="#">Use</a></span></li>';
-  result.prepend(result).children('li').fadein(200);
-  if (jQuery('#results_default')) {
-    jQuery('#result_default').remove();
+  var result = jQuery("#results_list");
+  var result =
+    "" +
+    '<li class="result"><span class="equation">' +
+    a +
+    visOps(o) +
+    b +
+    "</span>" +
+    '<span class="answer">' +
+    answer +
+    '</span> <span class="use"><a class="calc_use" href="#">Use</a></span></li>';
+  result.prepend(result).children("li").fadein(200);
+  if (jQuery("#results_default")) {
+    jQuery("#result_default").remove();
   }
-  jQuery('.calc_use').off('click').on('click', function () {
-    var i = jQuery(this).parent('.use').siblings('.answer').text();
-    jQuery(this).parent('.result').animate({
-      'opacity': '1'
-    }, 200);
-    memory(i);
-    return false;
-  });
+  jQuery(".calc_use")
+    .off("click")
+    .on("click", function () {
+      var i = jQuery(this).parent(".use").siblings(".answer").text();
+      jQuery(this).parent(".result").animate(
+        {
+          opacity: "1",
+        },
+        200,
+      );
+      memory(i);
+      return false;
+    });
 }
 
 function sqrt(i) {
-  write(' Square Root');
+  write(" Square Root");
   var s = Math.sqrt(i);
   answer = s;
-  write('u221A' + i + '=' + s);
+  write("u221A" + i + "=" + s);
   loop_calc(s);
-  newResult('', '√', i, s);
+  newResult("", "√", i, s);
   display.text(answer);
   is_submission = true;
   first_b = true;
 }
 
 function denom(i) {
-  write('Denominator');
+  write("Denominator");
   var s = 1 / i;
   answer = s;
-  write('1/' + i + '=' + s);
+  write("1/" + i + "=" + s);
   loop_calc(s);
-  newResult(1, '/', i, s);
+  newResult(1, "/", i, s);
   display.text(answer);
   is_submission = true;
   first_b = true;
-} 
+}
 
-jQuery('.calc_int, #calc_decimal').each(function () {
+jQuery(".calc_int, #calc_decimal").each(function () {
   jQuery(this).click(function () {
     var value = jQuery(this).val();
     if (is_submission === false) {
@@ -273,20 +286,121 @@ jQuery('.calc_int, #calc_decimal').each(function () {
   });
 });
 
-jQuery('.calc_op').each(function () {
+jQuery(".calc_op").each(function () {
   jQuery(this).click(function () {
     var value = jQuery(this).val();
     set_o(value);
   });
 });
 
-jQuery('#calc_eval').click(function () {
+jQuery("#calc_eval").click(function () {
   submit_calc();
 });
 
-jQuery('#calc_clear').click(function () {
+jQuery("#calc_clear").click(function () {
   reset_calc();
 });
-jQuery('calc_neg').click(function () {
+jQuery("calc_neg").click(function () {
   neg();
+});
+jQuery("#calc_back").click(function () {
+  backspace();
+});
+
+jQuery("#calc_sqrt").click(function () {
+  if (display.text() !== "0") {
+    if (is_submission) {
+      sqrt(answer);
+    } else if (is_a) {
+      sqrt(a);
+    }
+  }
+  return false;
+});
+
+jQuery("#calc_square").click(function () {
+  if (display.text() !== "0") {
+    if (is_submission) {
+      square(answer);
+    } else if (is_a) {
+      square(a);
+    }
+  }
+  return false;
+});
+
+jQuery("#calc_denom").click(function () {
+  if (display.text() !== "0") {
+    if (is_submission) {
+      denom(answer);
+    } else if (is_a) {
+      denom(a);
+    }
+  }
+  return false;
+});
+
+jQuery("#result_clears").click(function () {
+  jQuery("#results_list")
+    .children("li")
+    .fadeOut(200, function () {
+      jQuery(this).remove();
+    });
+  jQuery("#results_list").prepend(
+    '<li id="result_default"> Memory is empty </li>',
+  );
+  return false;
+});
+
+jQuery(document).keypress(function (e) {
+  var charcode = e.which;
+  var key = String.fromCharCode(charcode);
+  if (charcode >= 46 && charcode <= 58 && charcode !== 47) {
+    if (!is_submission) {
+      if (is_a) {
+        set_a(key);
+      } else {
+        set_b(key);
+      }
+    } else if (soft_sub) {
+      set_b(key);
+    } else {
+      reset_calc();
+      set_a(key);
+    }
+  }
+  if (
+    (charcode >= 42 && charcode <= 45 && charcode !== 44) ||
+    charcode === 47
+  ) {
+    set_o(key);
+  }
+  if (charcode === 61) {
+    submit_calc();
+  }
+  jQuery("button").each(function () {
+    var value = jQuery(this).val();
+    if (value === key) {
+      animateButton(jQuery(this));
+    }
+  });
+});
+
+jQuery(document).keydown(function (e) {
+  var charcode = e.which;
+  if (charcode === 8) {
+    backspace();
+    animateButton(jQuery("#calc_back"));
+    return false;
+  }
+  if (charcode === 12) {
+    submit_calc();
+    animateButton(jQuery("#calc_clear"));
+    return false;
+  }
+  if (charcode === 13) {
+    submit_calc();
+    animateButton(jQuery("#calc_eval"));
+    return false;
+  }
 });
