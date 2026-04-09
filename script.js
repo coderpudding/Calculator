@@ -1,7 +1,3 @@
-const { animate } = require("framer-motion");
-const { button } = require("framer-motion/client");
-const { memo } = require("react");
-
 var a = 0,
   b = 0,
   is_a = true,
@@ -12,7 +8,7 @@ var a = 0,
   first_b = true,
   is_submission = false,
   soft_sub = false,
-  display = jQuery("#toal");
+  display = jQuery("#total");
 function write(x) {
   console.log(x);
 }
@@ -37,20 +33,23 @@ function setDisplayVal(x) {
 function animateButton(obj) {
   var button = obj.addClass("hovering");
   setTimeout(function () {
-    button.removeclass("hovering");
+    button.removeClass("hovering");
   }, 100);
 }
 
 function set_a(i) {
   if (is_a) {
-    if (i === "." && first_a) {
+    if (i === "." && a.toString().indexOf(".") !== -1) {
+      write("Duplicate Decimal");
+      i = "";
+    } else if (i === "." && first_a) {
       i = "0.";
     }
     if (first_a === true) {
       if (i === "0") {
         i = "";
       } else {
-        changeDisplayVal(i);
+        setDisplayVal(i);
         first_a = false;
       }
     } else {
@@ -63,7 +62,7 @@ function set_a(i) {
 
 function set_b(i) {
   if (!is_a) {
-    if (i === "." && b.toSring().indexOf(".") !== -1) {
+    if (i === "." && b.toString().indexOf(".") !== -1) {
       write("duplicate decimal");
       i = "";
     } else if (i === "." && first_b) {
@@ -79,15 +78,13 @@ function set_b(i) {
     } else {
       changeDisplayVal(i);
     }
-  } else {
-    changeDisplayVal(i);
-    first_b = false;
+    b = display.text();
+    write('set "b" to ' + b);
   }
-  b = display.text();
-  write('set "b" to ' + b);
 }
+
 function loop_calc(answer) {
-  writeFile("Loop Calculator");
+  write("Loop Calculator");
   a = answer;
   b = 0;
   answer = 0;
@@ -195,9 +192,9 @@ function backspace() {
   if (display.text() !== "" && display.text() !== "0") {
     display.text(display.text().substring(0, display.text().length - 1));
     if (is_a === true) {
-      a = parseFloat(a.toString().substring(0, a.tostring().length - 1));
+      a = parseFloat(a.toString().substring(0, a.toString().length - 1));
     } else {
-      b = parseFloat(b.tostring().substring(0, b.tostring().length - 1));
+      b = parseFloat(b.toString().substring(0, b.toString().length - 1));
     }
   } else {
     write("Nothing left to backspace");
@@ -216,7 +213,7 @@ function memory(i) {
 }
 
 function newResult(a, o, b, answer) {
-  var result = jQuery("#results_list");
+  var results = jQuery("#results_list");
   var result =
     "" +
     '<li class="result"><span class="equation">' +
@@ -227,8 +224,8 @@ function newResult(a, o, b, answer) {
     '<span class="answer">' +
     answer +
     '</span> <span class="use"><a class="calc_use" href="#">Use</a></span></li>';
-  result.prepend(result).children("li").fadein(200);
-  if (jQuery("#results_default")) {
+  results.prepend(result).children("li").fadeIn(200);
+  if (jQuery("#result_default")) {
     jQuery("#result_default").remove();
   }
   jQuery(".calc_use")
@@ -244,6 +241,17 @@ function newResult(a, o, b, answer) {
       memory(i);
       return false;
     });
+}
+
+function square(i) {
+  write("Square");
+  var s = i * i;
+  answer = s;
+  loop_calc(s);
+  newResult(i, "&#94; 2", "", s);
+  display.text(answer);
+  is_submission = true;
+  first_b = true;
 }
 
 function sqrt(i) {
@@ -300,7 +308,7 @@ jQuery("#calc_eval").click(function () {
 jQuery("#calc_clear").click(function () {
   reset_calc();
 });
-jQuery("calc_neg").click(function () {
+jQuery("#calc_neg").click(function () {
   neg();
 });
 jQuery("#calc_back").click(function () {
@@ -340,7 +348,7 @@ jQuery("#calc_denom").click(function () {
   return false;
 });
 
-jQuery("#result_clears").click(function () {
+jQuery("#result_clear").click(function () {
   jQuery("#results_list")
     .children("li")
     .fadeOut(200, function () {
@@ -394,7 +402,7 @@ jQuery(document).keydown(function (e) {
     return false;
   }
   if (charcode === 12) {
-    submit_calc();
+    reset_calc();
     animateButton(jQuery("#calc_clear"));
     return false;
   }

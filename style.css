@@ -23,7 +23,7 @@ a {
 }
 
 #the-calculator {
-  font-size: 12em;
+  font-size: 1.2em;
   display: block;
   width: 49%;
   float: left;
@@ -41,10 +41,10 @@ a {
   display: inline-block;
   position: relative;
   padding: 12px;
-  font-family: "Helvetica Neue", "Helvetica", "sans-serif";
+  font-family: "Helvetica Neue", "Helvetica", sans-serif;
 }
 
-#the-calclator button .exponent,
+#the-calculator button .exponent,
 #the-calculator input .exponent,
 #the-calculator #total .exponent {
   font-size: 0.6em;
@@ -53,28 +53,28 @@ a {
 
 #the-calculator button .denominator,
 #the-calculator input .denominator,
-#the-calulator #total .denominator {
+#the-calculator #total .denominator {
   position: relative;
 }
 
-#the-calulator button .denominator .denom-top,
+#the-calculator button .denominator .denom-top,
 #the-calculator input .denominator .denom-top,
-#the-calculator #total .denomintor .denom-top {
+#the-calculator #total .denominator .denom-top {
   font-size: 0.75em;
   position: absolute;
   left: -8px;
 }
 
 #the-calculator button .denominator .denom-slash,
-#the-calulator input .denominator .denom-slash,
+#the-calculator input .denominator .denom-slash,
 #the-calculator #total .denominator .denom-slash {
   padding: 0px 2px;
 }
 
 #the-calculator button .denominator .denom-btm,
-#the-calculator input .denomintor .denom-btm,
-#the-calulator #total .denominator .denom-btm {
-  font-size: 0.7em;
+#the-calculator input .denominator .denom-btm,
+#the-calculator #total .denominator .denom-btm {
+  font-size: 0.75em;
   position: absolute;
   bottom: 0px;
 }
@@ -88,7 +88,7 @@ a {
   display: block;
   border-radius: 4px;
   font-size: 1.5em;
-  color: #0f8;
+  color: #00ff88;
   background: rgba(0, 0, 0, 0.8);
   text-align: right;
   border: 1px solid rgba(255, 255, 255, 0.2);
@@ -131,7 +131,7 @@ a {
   transition: background 0.2s;
 }
 
-#thecalculator #the-buttons .button-row button:last-child {
+#the-calculator #the-buttons .button-row button:last-child {
   margin-right: 0;
   float: right;
 }
@@ -156,17 +156,17 @@ a {
   font-weight: bold;
 }
 
-#the-result {
-  width: 49%;
+#the-results {
+  width: 50%;
   float: right;
   margin: 0;
-  border: 1px solid rgba(255, 255, 25, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   background: rgba(0, 0, 0, 0.75);
   border-radius: 8px;
   position: relative;
 }
 
-#the-result #result_clear {
+#the-results #result_clear {
   position: absolute;
   right: 8px;
   top: -24px;
@@ -175,20 +175,27 @@ a {
 }
 
 #the-results ul {
-  height: 440px;
-  overflow: scroll;
+  height: 465px;
+  overflow-y: scroll;
   list-style: none;
   padding: 0;
   margin: 0;
   background: rgba(0, 0, 0, 0.5);
-  border: 1px solid rgba(255, 255, 25, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 8px;
 }
 
-#the-result ul li #result_default {
+#the-results ul li {
+  font-size: 0.8em;
+  width: 100%;
+  height: 40px;
+  line-height: 40px;
+}
+
+#the-results ul li#result_default {
   text-align: center;
   color: #aaa;
-  font-size: italic;
+  font-style: italic;
 }
 
 #the-results ul li.result {
@@ -197,27 +204,27 @@ a {
   color: #ccc;
   background: rgba(20, 20, 20, 0.6);
   position: relative;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-#the-result ul li.result:after {
+#the-results ul li.result:after {
   content: "";
   display: table;
   clear: both;
 }
-#the-result ul li.result:nth-child(even) {
+#the-results ul li.result:nth-child(even) {
   background: rgba(40, 40, 40, 0.6);
 }
 
 #the-results ul li.result .equation,
-#the-result ul li.result .answer {
+#the-results ul li.result .answer {
   display: inline-block;
   padding: 0px 12px;
   height: 100%;
   line-height: 40px;
 }
 
-#the-result ul li.result .equation {
+#the-results ul li.result .equation {
   float: left;
   font-style: italic;
   height: 100%;
@@ -227,14 +234,14 @@ a {
   text-overflow: ellipsis;
 }
 
-#the-results ul li.results .answer {
+#the-results ul li.result .answer {
   position: absolute;
   right: 52px;
   top: 0;
   background: rgba(0, 0, 0, 0.4);
 }
 
-#the-result ul li.result .use a {
+#the-results ul li.result .use a {
   background: rgba(60, 60, 60, 0.8);
   position: absolute;
   right: 0;
