@@ -6,7 +6,7 @@ A calculator I built using HTML CSS and JQuery, it can do addition, subtraction,
 
 ## Preview
 
-![Calculator preview] (images/preview.png)
+![Calculator preview](images/preview.png)
 
 ---
 
