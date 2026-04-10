@@ -1,6 +1,6 @@
 ## Calculator
 
-A calculator I built using HTML CSS and JQuery, it can do addition, subtraction, multiplication, division and also square roots, powers, and reciprocals, it also has a memory pannel and reciprocals, Has a memory panel on the side that keeps track of every calculation so you can reuse old results without having to type them again
+A calculator I built using HTML CSS and JQuery, it can do addition, subtraction, multiplication, division and also square roots, powers, and reciprocals, Has a memory panel on the side that keeps track of every calculation so you can reuse old results without having to type them again
 
 ---
 
